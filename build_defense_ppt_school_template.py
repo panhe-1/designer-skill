@@ -7,15 +7,23 @@ from pptx import Presentation
 from pptx.dml.color import RGBColor
 from pptx.enum.shapes import MSO_AUTO_SHAPE_TYPE
 from pptx.enum.text import MSO_VERTICAL_ANCHOR, PP_ALIGN
+from pptx.oxml.ns import qn
 from pptx.util import Inches, Pt
 
 
 BASE_DIR = Path(__file__).resolve().parent
 MEDIA_DIR = BASE_DIR / "template_media"
-OUTPUT_PATH = Path.home() / "Desktop" / "FD服饰公司短视频营销策略优化研究_终期答辩PPT_学校模板改版.pptx"
+OUTPUT_PATH = Path.home() / "Desktop" / "FD服饰公司短视频营销策略优化研究_终期答辩PPT_学校模板增强版.pptx"
 
 FONT_CN = "Microsoft YaHei"
 FONT_EN = "Aptos"
+
+THESIS_TITLE = "FD服饰公司短视频营销策略优化研究"
+SUBTITLE = "基于 STP 战略与 4V 营销理论的诊断与优化"
+AUTHOR = "廖子楚"
+ADVISOR = "巨静文"
+COLLEGE = "西安欧亚学院 职业教育学院"
+MAJOR = "市场营销专业"
 
 PALETTE = {
     "white": RGBColor(255, 255, 255),
@@ -33,6 +41,7 @@ PALETTE = {
     "orange": RGBColor(215, 142, 86),
     "slate": RGBColor(128, 141, 150),
     "shadow": RGBColor(227, 235, 240),
+    "navy": RGBColor(54, 73, 93),
 }
 
 IMAGES = {
@@ -47,6 +56,34 @@ IMAGES = {
     "logo": MEDIA_DIR / "image10.png",
 }
 
+DOMESTIC_REFS_1 = [
+    "[1] 侯雪青. 短视频的营销模式及策略研究[J]. 电子商务评论, 2024, 13(2):2298-2303.",
+    "[2] 赵婷. 服装类短视频内容营销影响购买意愿的作用机理研究[D]. 东华大学, 2023.",
+    "[3] 舒方瑞. 服装市场运营中短视频应用的优势和策略[J]. 上海服饰, 2024(04):8-10.",
+    "[4] 汪彦丹. 中国服饰品牌短视频传播策略研究分析: 以太平鸟女装为例[J]. 化纤与纺织技术, 2022, 51(08):109-111.",
+    "[5] 姜雯静, 孙虹. 基于 SIPS 模型的服装品牌短视频营销体系构建[J]. 服装设计师, 2024(10):122-128.",
+    "[6] 吴金明. 新经济时代的“4V”营销组合[J]. 中国工业经济, 2001(06):70-75.",
+    "[7] 严晓冬. 新媒体短视频的特征及其内容创作策略[J]. 西部广播电视, 2023, 44(07):57-59.",
+    "[8] 李庆, 秦娟. 数字化营销时代短视频的应用研究[J]. 辽宁省交通高等专科学校学报, 2025, 27(04):28-31.",
+    "[9] 于潇, 王鼎立, 白丽, 等. 内容策略视域下的企业号短视频用户参与行为研究[J]. 情报科学, 2023, 41(11):85-93,150.",
+    "[10] 程玉田. 4I 营销理论视角下虚拟数字人营销实践的现状、问题及优化对策研究[D]. 上海师范大学, 2023.",
+]
+
+DOMESTIC_REFS_2 = [
+    "[11] 唐丽琼. JTY 公司短视频营销策略研究[D]. 桂林电子科技大学, 2023.",
+    "[12] 程玲玲. 武汉 A 传媒公司短视频业务营销策略优化研究[D]. 华中农业大学, 2023.",
+    "[13] 严小林. 短视频平台中商品展示的视觉修辞与消费行为引导机制探究[J]. 人像摄影, 2025(09):262-263.",
+    "[14] 珍珍. 说服理论视域下商品导购类短视频对内蒙古地区大学生消费行为影响研究[D]. 内蒙古师范大学, 2024.",
+    "[15] 刘雅婷, 陈文晖. “十五五”时期我国纺织服装产业数字化升级路径研究[J]. 价格理论与实践, 2025(12):90-96+290.",
+]
+
+FOREIGN_REFS = [
+    "[16] Tam Y F, Lung J. Digital marketing strategies for luxury fashion brands: A systematic literature review[J]. International Journal of Information Management Data Insights, 2025, 5(1):100309.",
+    "[17] Kanellos N, Karountzos P, Giannakopoulos T N, et al. Digital Marketing Strategies and Profitability in the Agri-Food Industry[J]. Sustainability, 2024, 16(14):5889.",
+    "[18] Luo C, Hasan M A N, Ahmad B Z M A, et al. Influence of short video content on consumers' purchase intentions on social media platforms[J]. Scientific Reports, 2025, 15(1):16605.",
+    "[19] Zafar A U, Shen J, Shahzad M, Islam T. Social media and sustainable purchasing attitude[J]. Journal of Retailing and Consumer Services, 2021, 63:102751.",
+]
+
 
 def set_background(slide, color: RGBColor = PALETTE["bg"]) -> None:
     fill = slide.background.fill
@@ -54,8 +91,19 @@ def set_background(slide, color: RGBColor = PALETTE["bg"]) -> None:
     fill.fore_color.rgb = color
 
 
-def add_rect(slide, x, y, w, h, fill, *, line=None, transparency: float = 0.0):
-    shape = slide.shapes.add_shape(MSO_AUTO_SHAPE_TYPE.RECTANGLE, Inches(x), Inches(y), Inches(w), Inches(h))
+def style_run(run, *, font_size: int, color: RGBColor, bold: bool = False, font_name: str = FONT_CN) -> None:
+    run.font.name = font_name
+    run.font.size = Pt(font_size)
+    run.font.bold = bold
+    run.font.color.rgb = color
+    rpr = run._element.get_or_add_rPr()
+    rpr.set(qn("a:latin"), font_name)
+    rpr.set(qn("a:ea"), font_name)
+    rpr.set(qn("a:cs"), font_name)
+
+
+def add_shape(slide, shape_type, x, y, w, h, fill, *, line=None, transparency: float = 0.0):
+    shape = slide.shapes.add_shape(shape_type, Inches(x), Inches(y), Inches(w), Inches(h))
     shape.fill.solid()
     shape.fill.fore_color.rgb = fill
     shape.fill.transparency = transparency
@@ -65,27 +113,31 @@ def add_rect(slide, x, y, w, h, fill, *, line=None, transparency: float = 0.0):
         shape.line.color.rgb = line
         shape.line.width = Pt(1)
     return shape
+
+
+def add_rect(slide, x, y, w, h, fill, *, line=None, transparency: float = 0.0):
+    return add_shape(slide, MSO_AUTO_SHAPE_TYPE.RECTANGLE, x, y, w, h, fill, line=line, transparency=transparency)
 
 
 def add_round_rect(slide, x, y, w, h, fill, *, line=None, transparency: float = 0.0):
-    shape = slide.shapes.add_shape(
+    shape = add_shape(
+        slide,
         MSO_AUTO_SHAPE_TYPE.ROUNDED_RECTANGLE,
-        Inches(x),
-        Inches(y),
-        Inches(w),
-        Inches(h),
+        x,
+        y,
+        w,
+        h,
+        fill,
+        line=line,
+        transparency=transparency,
     )
-    shape.fill.solid()
-    shape.fill.fore_color.rgb = fill
-    shape.fill.transparency = transparency
-    if line is None:
-        shape.line.fill.background()
-    else:
-        shape.line.color.rgb = line
-        shape.line.width = Pt(1)
     if shape.adjustments:
         shape.adjustments[0] = 0.08
     return shape
+
+
+def add_circle(slide, x, y, d, fill, *, line=None, transparency: float = 0.0):
+    return add_shape(slide, MSO_AUTO_SHAPE_TYPE.OVAL, x, y, d, d, fill, line=line, transparency=transparency)
 
 
 def add_textbox(
@@ -117,11 +169,9 @@ def add_textbox(
         p = tf.paragraphs[0]
         p.text = text
         p.alignment = align
-        run = p.runs[0]
-        run.font.name = font_name
-        run.font.size = Pt(font_size)
-        run.font.bold = bold
-        run.font.color.rgb = color
+        if not p.runs:
+            p.add_run()
+        style_run(p.runs[0], font_size=font_size, color=color, bold=bold, font_name=font_name)
     return box, tf
 
 
@@ -129,7 +179,7 @@ def add_paragraph(
     tf,
     text: str,
     *,
-    font_size: int = 15,
+    font_size: int = 16,
     color: RGBColor = PALETTE["ink"],
     bold: bool = False,
     font_name: str = FONT_CN,
@@ -137,6 +187,7 @@ def add_paragraph(
     bullet: bool = False,
     level: int = 0,
     space_after: int = 2,
+    line_spacing: float = 1.1,
 ):
     p = tf.paragraphs[0] if not tf.text else tf.add_paragraph()
     p.text = text
@@ -144,43 +195,83 @@ def add_paragraph(
     p.level = level
     p.bullet = bullet
     p.space_after = Pt(space_after)
+    p.line_spacing = line_spacing
     if not p.runs:
         p.add_run()
-    run = p.runs[0]
-    run.font.name = font_name
-    run.font.size = Pt(font_size)
-    run.font.bold = bold
-    run.font.color.rgb = color
+    style_run(p.runs[0], font_size=font_size, color=color, bold=bold, font_name=font_name)
     return p
+
+
+def add_chip(slide, x, y, w, h, text: str, *, fill, color, bold: bool = True, font_size: int = 12):
+    add_round_rect(slide, x, y, w, h, fill)
+    add_textbox(
+        slide,
+        x + 0.04,
+        y + 0.02,
+        w - 0.08,
+        h - 0.04,
+        text,
+        font_size=font_size,
+        color=color,
+        bold=bold,
+        align=PP_ALIGN.CENTER,
+        valign=MSO_VERTICAL_ANCHOR.MIDDLE,
+        margin=0,
+    )
+
+
+def add_panel_title(slide, x, y, title: str, *, size: int = 18, accent: bool = True):
+    if accent:
+        add_rect(slide, x, y + 0.06, 0.08, 0.24, PALETTE["teal"])
+        add_textbox(slide, x + 0.14, y, 3.5, 0.34, title, font_size=size, color=PALETTE["ink"], bold=True)
+    else:
+        add_textbox(slide, x, y, 3.5, 0.34, title, font_size=size, color=PALETTE["ink"], bold=True)
+
+
+def add_metric_card(slide, x, y, w, h, value: str, label: str, *, value_size: int = 24):
+    add_round_rect(slide, x, y, w, h, PALETTE["white"], line=PALETTE["line"])
+    add_textbox(slide, x + 0.12, y + 0.14, w - 0.24, 0.34, value, font_size=value_size, color=PALETTE["teal_dark"], bold=True, font_name=FONT_EN)
+    add_textbox(slide, x + 0.12, y + 0.54, w - 0.24, 0.38, label, font_size=13, color=PALETTE["muted"])
 
 
 def add_top_chrome(slide, title: str, slide_no: int, total: int, *, subtitle: str | None = None) -> None:
     set_background(slide)
-    add_textbox(slide, 0.28, 0.22, 0.25, 0.3, "⋮", font_size=20, color=PALETTE["teal_dark"], bold=True)
-    add_textbox(slide, 0.58, 0.2, 4.6, 0.4, title, font_size=22, color=PALETTE["ink"], bold=True)
+    add_textbox(slide, 0.26, 0.16, 0.3, 0.34, "•", font_size=26, color=PALETTE["teal_dark"], bold=True, font_name=FONT_EN)
+    add_textbox(slide, 0.58, 0.14, 5.7, 0.42, title, font_size=28, color=PALETTE["ink"], bold=True)
     if subtitle:
-        add_textbox(slide, 0.6, 0.55, 4.6, 0.25, subtitle, font_size=10, color=PALETTE["muted"], font_name=FONT_EN)
-    add_round_rect(slide, 12.55, 0.2, 0.2, 0.12, PALETTE["teal"])
+        add_textbox(slide, 0.62, 0.54, 4.4, 0.24, subtitle, font_size=11, color=PALETTE["muted"], font_name=FONT_EN)
+    add_round_rect(slide, 12.42, 0.18, 0.22, 0.12, PALETTE["teal"])
     add_textbox(
         slide,
-        12.15,
-        0.18,
-        0.35,
+        11.98,
+        0.14,
+        0.38,
         0.22,
         f"{slide_no:02d}",
-        font_size=10,
+        font_size=11,
         color=PALETTE["muted"],
         font_name=FONT_EN,
         align=PP_ALIGN.RIGHT,
     )
+    add_textbox(slide, 12.62, 0.14, 0.34, 0.22, f"/ {total:02d}", font_size=9, color=PALETTE["muted"], font_name=FONT_EN)
 
 
 def add_footer_bar(slide) -> None:
-    add_rect(slide, 0.25, 7.03, 12.4, 0.07, PALETTE["teal"], transparency=0.15)
+    add_rect(slide, 0.24, 7.03, 12.45, 0.07, PALETTE["teal"], transparency=0.1)
 
 
 def add_picture_fill(slide, image: Path, x, y, w, h):
-    return slide.shapes.add_picture(str(image), Inches(x), Inches(y), Inches(w), Inches(h))
+    if image.exists():
+        return slide.shapes.add_picture(str(image), Inches(x), Inches(y), Inches(w), Inches(h))
+    return None
+
+
+def add_reference_column(slide, x, y, w, h, title: str, refs: list[str]) -> None:
+    add_round_rect(slide, x, y, w, h, PALETTE["white"], line=PALETTE["line"])
+    add_panel_title(slide, x + 0.2, y + 0.16, title, size=16)
+    _, tf = add_textbox(slide, x + 0.18, y + 0.54, w - 0.36, h - 0.72)
+    for ref in refs:
+        add_paragraph(tf, ref, font_size=11, color=PALETTE["muted"], space_after=6, line_spacing=1.05)
 
 
 def build_cover_slide(prs: Presentation, slide_no: int, total: int) -> None:
@@ -188,50 +279,22 @@ def build_cover_slide(prs: Presentation, slide_no: int, total: int) -> None:
     set_background(slide, PALETTE["white"])
 
     add_rect(slide, 0, 0, 13.333, 7.5, PALETTE["white"])
-    add_rect(slide, 0, 0, 8.2, 7.5, PALETTE["teal"], transparency=0.84)
-    add_rect(slide, 0.0, 0.0, 13.333, 1.0, PALETTE["teal"], transparency=0.94)
-    add_rect(slide, 10.15, 1.1, 2.55, 5.4, PALETTE["shadow"])
-    add_picture_fill(slide, IMAGES["cover"], 7.9, 1.15, 4.55, 5.45)
+    add_rect(slide, 0, 0, 7.9, 7.5, PALETTE["teal"], transparency=0.84)
+    add_rect(slide, 0, 0, 13.333, 1.0, PALETTE["teal"], transparency=0.94)
+    add_rect(slide, 9.95, 1.0, 2.55, 5.55, PALETTE["shadow"])
+    add_picture_fill(slide, IMAGES["cover"], 7.72, 1.02, 4.62, 5.55)
     if IMAGES["logo"].exists():
-        add_picture_fill(slide, IMAGES["logo"], 0.45, 0.22, 1.35, 0.32)
+        add_picture_fill(slide, IMAGES["logo"], 0.42, 0.22, 1.38, 0.34)
 
-    add_textbox(slide, 0.58, 1.5, 5.9, 0.7, "本科毕业论文答辩", font_size=24, color=PALETTE["teal"], bold=True)
-    add_textbox(slide, 0.58, 2.35, 5.8, 1.3, "FD服饰公司短视频营销策略优化研究", font_size=27, color=PALETTE["white"], bold=True)
-    add_textbox(
-        slide,
-        0.62,
-        3.85,
-        5.5,
-        0.8,
-        "基于 STP 战略与 4V 营销理论的诊断与优化",
-        font_size=16,
-        color=PALETTE["white"],
-    )
-    add_textbox(
-        slide,
-        0.62,
-        4.75,
-        5.9,
-        0.9,
-        "西安欧亚学院  职业教育学院\n市场营销专业",
-        font_size=16,
-        color=PALETTE["ink"],
-        bold=True,
-    )
-    add_textbox(slide, 0.62, 6.0, 1.65, 0.35, "答辩人：廖子楚", font_size=15, color=PALETTE["ink"], bold=True)
-    add_textbox(slide, 2.35, 6.0, 1.9, 0.35, "指导教师：巨静文", font_size=15, color=PALETTE["ink"], bold=True)
-    add_textbox(
-        slide,
-        4.6,
-        6.0,
-        1.2,
-        0.35,
-        f"{date.today():%Y年%m月}",
-        font_size=15,
-        color=PALETTE["ink"],
-        bold=True,
-        font_name=FONT_EN,
-    )
+    add_textbox(slide, 0.58, 1.42, 5.8, 0.55, "本科毕业论文终期答辩", font_size=26, color=PALETTE["teal"], bold=True)
+    add_textbox(slide, 0.58, 2.18, 6.05, 1.5, THESIS_TITLE, font_size=33, color=PALETTE["white"], bold=True)
+    add_textbox(slide, 0.62, 3.88, 5.8, 0.72, SUBTITLE, font_size=19, color=PALETTE["white"], bold=True)
+
+    add_round_rect(slide, 0.6, 4.9, 5.95, 1.18, PALETTE["white"], transparency=0.08)
+    add_textbox(slide, 0.86, 5.12, 4.8, 0.32, f"{COLLEGE}  |  {MAJOR}", font_size=16, color=PALETTE["ink"], bold=True)
+    add_textbox(slide, 0.86, 5.54, 1.75, 0.28, f"答辩人：{AUTHOR}", font_size=16, color=PALETTE["ink"], bold=True)
+    add_textbox(slide, 2.74, 5.54, 2.15, 0.28, f"指导教师：{ADVISOR}", font_size=16, color=PALETTE["ink"], bold=True)
+    add_textbox(slide, 5.04, 5.54, 1.25, 0.28, f"{date.today():%Y年%m月}", font_size=16, color=PALETTE["ink"], bold=True, font_name=FONT_EN)
     add_textbox(slide, 12.1, 0.18, 0.35, 0.22, f"{slide_no:02d}", font_size=10, color=PALETTE["muted"], font_name=FONT_EN)
 
 
@@ -239,36 +302,42 @@ def build_contents_slide(prs: Presentation, slide_no: int, total: int) -> None:
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     set_background(slide, PALETTE["white"])
 
-    add_picture_fill(slide, IMAGES["contents"], 0.45, 0.45, 3.45, 6.2)
-    add_rect(slide, 0.45, 0.45, 3.45, 1.25, PALETTE["teal"], transparency=0.18)
-    add_rect(slide, 0.45, 5.02, 3.45, 1.63, PALETTE["teal"], transparency=0.06)
-    add_rect(slide, 0.45, 0.45, 0.88, 6.2, PALETTE["white"], transparency=0.28)
-    add_textbox(slide, 1.42, 0.98, 1.6, 0.32, "CONTENTS", font_size=15, color=PALETTE["white"], font_name=FONT_EN)
-    add_textbox(slide, 1.42, 5.2, 1.3, 0.62, "目录", font_size=31, color=PALETTE["white"], bold=True)
-    add_textbox(slide, 9.55, 0.48, 0.4, 0.4, "“", font_size=30, color=PALETTE["teal"], bold=True)
+    add_picture_fill(slide, IMAGES["contents"], 0.45, 0.45, 3.45, 6.25)
+    add_rect(slide, 0.45, 0.45, 3.45, 6.25, PALETTE["teal"], transparency=0.75)
+    add_rect(slide, 0.45, 0.45, 0.9, 6.25, PALETTE["white"], transparency=0.3)
+    add_textbox(slide, 1.46, 0.98, 1.8, 0.32, "CONTENTS", font_size=16, color=PALETTE["white"], font_name=FONT_EN, bold=True)
+    add_textbox(slide, 1.4, 5.2, 1.6, 0.65, "目录", font_size=34, color=PALETTE["white"], bold=True)
+    add_textbox(slide, 1.42, 5.9, 1.8, 0.5, "答辩结构与汇报重点", font_size=15, color=PALETTE["white"])
+
+    add_round_rect(slide, 4.35, 0.66, 8.5, 5.92, PALETTE["panel_soft"], line=PALETTE["line"])
+    add_textbox(slide, 12.16, 0.18, 0.35, 0.22, f"{slide_no:02d}", font_size=10, color=PALETTE["muted"], font_name=FONT_EN)
 
     items = [
-        ("01", "研究背景与意义"),
-        ("02", "研究设计"),
-        ("03", "现状与问题诊断"),
-        ("04", "优化策略"),
-        ("05", "结论与展望"),
+        ("01", "研究背景、文献与理论", "研究缘起、国内外研究现状、理论依据"),
+        ("02", "研究设计", "研究方法、样本来源、技术路线"),
+        ("03", "现状分析与问题诊断", "企业现状、问卷发现、STP 与 4V 问题"),
+        ("04", "优化策略", "STP 重构、4V 优化、落地重点"),
+        ("05", "研究结论与展望", "主要结论、研究局限、未来方向"),
+        ("06", "主要参考文献", "按论文参考文献整理展示"),
     ]
-    y = 1.55
-    for num, label in items:
-        add_textbox(slide, 5.8, y, 0.6, 0.32, num, font_size=16, color=PALETTE["teal_dark"], bold=True, font_name=FONT_EN)
-        add_textbox(slide, 6.55, y - 0.02, 4.0, 0.35, label, font_size=17, color=PALETTE["ink"], bold=True)
-        y += 0.82
+    y = 1.04
+    for num, title, desc in items:
+        add_round_rect(slide, 4.78, y, 7.65, 0.76, PALETTE["white"], line=PALETTE["line"])
+        add_circle(slide, 5.02, y + 0.14, 0.42, PALETTE["teal"], transparency=0.04)
+        add_textbox(slide, 5.07, y + 0.2, 0.3, 0.15, num, font_size=12, color=PALETTE["teal_dark"], bold=True, font_name=FONT_EN, align=PP_ALIGN.CENTER)
+        add_textbox(slide, 5.62, y + 0.1, 3.45, 0.25, title, font_size=18, color=PALETTE["ink"], bold=True)
+        add_textbox(slide, 8.95, y + 0.12, 3.15, 0.24, desc, font_size=13, color=PALETTE["muted"])
+        y += 0.86
 
-    add_textbox(slide, 12.15, 0.18, 0.35, 0.22, f"{slide_no:02d}", font_size=10, color=PALETTE["muted"], font_name=FONT_EN)
-
-def build_section_slide(prs: Presentation, slide_no: int, total: int, num: str, title: str, image: Path) -> None:
+def build_section_slide(prs: Presentation, slide_no: int, total: int, num: str, title: str, image: Path, subtitle: str) -> None:
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     set_background(slide, PALETTE["white"])
-    add_picture_fill(slide, image, 8.75, 0.85, 3.25, 4.35)
-    add_textbox(slide, 1.5, 2.15, 1.3, 0.6, num, font_size=30, color=PALETTE["teal"], bold=True, font_name=FONT_EN)
-    add_rect(slide, 1.48, 3.15, 3.9, 0.5, PALETTE["teal"], transparency=0.08)
-    add_textbox(slide, 1.65, 3.12, 3.4, 0.42, title, font_size=22, color=PALETTE["white"], bold=True, valign=MSO_VERTICAL_ANCHOR.MIDDLE)
+    add_picture_fill(slide, image, 8.55, 0.92, 3.55, 4.55)
+    add_rect(slide, 8.55, 0.92, 3.55, 4.55, PALETTE["teal"], transparency=0.8)
+    add_textbox(slide, 1.35, 2.02, 1.5, 0.62, num, font_size=34, color=PALETTE["teal"], bold=True, font_name=FONT_EN)
+    add_round_rect(slide, 1.35, 3.0, 4.55, 0.62, PALETTE["teal"], transparency=0.08)
+    add_textbox(slide, 1.6, 3.08, 4.0, 0.34, title, font_size=25, color=PALETTE["white"], bold=True, valign=MSO_VERTICAL_ANCHOR.MIDDLE)
+    add_textbox(slide, 1.62, 3.7, 3.2, 0.24, subtitle, font_size=12, color=PALETTE["muted"], font_name=FONT_EN)
     add_textbox(slide, 12.15, 0.18, 0.35, 0.22, f"{slide_no:02d}", font_size=10, color=PALETTE["muted"], font_name=FONT_EN)
 
 
