@@ -1,5 +1,7 @@
 # Designer Skill
 
+[中文说明](README.zh-CN.md)
+
 Designer Skill is a small workspace for design-oriented prompt assets, presentation generation scripts, and visual reference exports.
 
 This repository currently focuses on two related tracks:
