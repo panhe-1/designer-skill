@@ -302,14 +302,14 @@ def build_contents_slide(prs: Presentation, slide_no: int, total: int) -> None:
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     set_background(slide, PALETTE["white"])
 
-    add_picture_fill(slide, IMAGES["contents"], 0.45, 0.45, 3.45, 6.25)
-    add_rect(slide, 0.45, 0.45, 3.45, 6.25, PALETTE["teal"], transparency=0.75)
-    add_rect(slide, 0.45, 0.45, 0.9, 6.25, PALETTE["white"], transparency=0.3)
-    add_textbox(slide, 1.46, 0.98, 1.8, 0.32, "CONTENTS", font_size=16, color=PALETTE["white"], font_name=FONT_EN, bold=True)
-    add_textbox(slide, 1.4, 5.2, 1.6, 0.65, "目录", font_size=34, color=PALETTE["white"], bold=True)
-    add_textbox(slide, 1.42, 5.9, 1.8, 0.5, "答辩结构与汇报重点", font_size=15, color=PALETTE["white"])
+    add_picture_fill(slide, IMAGES["contents"], 0.42, 0.42, 3.62, 6.4)
+    add_rect(slide, 0.42, 0.42, 3.62, 6.4, PALETTE["teal"], transparency=0.76)
+    add_rect(slide, 0.42, 0.42, 1.0, 6.4, PALETTE["white"], transparency=0.26)
+    add_textbox(slide, 1.5, 0.96, 2.0, 0.34, "CONTENTS", font_size=18, color=PALETTE["white"], font_name=FONT_EN, bold=True)
+    add_textbox(slide, 1.26, 5.08, 2.1, 0.72, "目录", font_size=38, color=PALETTE["white"], bold=True)
+    add_textbox(slide, 1.3, 5.9, 2.15, 0.52, "终期答辩结构与汇报重点", font_size=17, color=PALETTE["white"], bold=True)
 
-    add_round_rect(slide, 4.35, 0.66, 8.5, 5.92, PALETTE["panel_soft"], line=PALETTE["line"])
+    add_round_rect(slide, 4.38, 0.62, 8.5, 6.05, PALETTE["panel_soft"], line=PALETTE["line"])
     add_textbox(slide, 12.16, 0.18, 0.35, 0.22, f"{slide_no:02d}", font_size=10, color=PALETTE["muted"], font_name=FONT_EN)
 
     items = [
@@ -320,75 +320,175 @@ def build_contents_slide(prs: Presentation, slide_no: int, total: int) -> None:
         ("05", "研究结论与展望", "主要结论、研究局限、未来方向"),
         ("06", "主要参考文献", "按论文参考文献整理展示"),
     ]
-    y = 1.04
+    y = 0.98
     for num, title, desc in items:
-        add_round_rect(slide, 4.78, y, 7.65, 0.76, PALETTE["white"], line=PALETTE["line"])
-        add_circle(slide, 5.02, y + 0.14, 0.42, PALETTE["teal"], transparency=0.04)
-        add_textbox(slide, 5.07, y + 0.2, 0.3, 0.15, num, font_size=12, color=PALETTE["teal_dark"], bold=True, font_name=FONT_EN, align=PP_ALIGN.CENTER)
-        add_textbox(slide, 5.62, y + 0.1, 3.45, 0.25, title, font_size=18, color=PALETTE["ink"], bold=True)
-        add_textbox(slide, 8.95, y + 0.12, 3.15, 0.24, desc, font_size=13, color=PALETTE["muted"])
-        y += 0.86
+        add_round_rect(slide, 4.74, y, 7.75, 0.84, PALETTE["white"], line=PALETTE["line"])
+        add_circle(slide, 5.0, y + 0.15, 0.46, PALETTE["teal"], transparency=0.04)
+        add_textbox(slide, 5.06, y + 0.22, 0.34, 0.15, num, font_size=13, color=PALETTE["teal_dark"], bold=True, font_name=FONT_EN, align=PP_ALIGN.CENTER)
+        add_textbox(slide, 5.68, y + 0.1, 3.7, 0.28, title, font_size=21, color=PALETTE["ink"], bold=True)
+        add_textbox(slide, 9.0, y + 0.13, 3.18, 0.28, desc, font_size=15, color=PALETTE["muted"])
+        y += 0.9
 
 def build_section_slide(prs: Presentation, slide_no: int, total: int, num: str, title: str, image: Path, subtitle: str) -> None:
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     set_background(slide, PALETTE["white"])
-    add_picture_fill(slide, image, 8.55, 0.92, 3.55, 4.55)
-    add_rect(slide, 8.55, 0.92, 3.55, 4.55, PALETTE["teal"], transparency=0.8)
-    add_textbox(slide, 1.35, 2.02, 1.5, 0.62, num, font_size=34, color=PALETTE["teal"], bold=True, font_name=FONT_EN)
-    add_round_rect(slide, 1.35, 3.0, 4.55, 0.62, PALETTE["teal"], transparency=0.08)
-    add_textbox(slide, 1.6, 3.08, 4.0, 0.34, title, font_size=25, color=PALETTE["white"], bold=True, valign=MSO_VERTICAL_ANCHOR.MIDDLE)
-    add_textbox(slide, 1.62, 3.7, 3.2, 0.24, subtitle, font_size=12, color=PALETTE["muted"], font_name=FONT_EN)
+    add_rect(slide, 0, 0, 13.333, 7.5, PALETTE["white"])
+    add_rect(slide, 0, 0, 8.25, 7.5, PALETTE["panel_soft"])
+    add_rect(slide, 0, 5.82, 13.333, 1.68, PALETTE["teal"], transparency=0.93)
+    add_picture_fill(slide, image, 8.48, 0.82, 3.72, 5.06)
+    add_rect(slide, 8.48, 0.82, 3.72, 5.06, PALETTE["teal"], transparency=0.82)
+    add_textbox(slide, 1.18, 1.72, 1.8, 0.78, num, font_size=40, color=PALETTE["teal"], bold=True, font_name=FONT_EN)
+    add_round_rect(slide, 1.16, 2.95, 5.25, 0.78, PALETTE["teal"])
+    add_textbox(slide, 1.48, 3.1, 4.72, 0.4, title, font_size=28, color=PALETTE["white"], bold=True, valign=MSO_VERTICAL_ANCHOR.MIDDLE)
+    add_textbox(slide, 1.22, 4.02, 3.85, 0.3, subtitle, font_size=13, color=PALETTE["muted"], font_name=FONT_EN, bold=True)
+    add_textbox(slide, 1.22, 4.5, 4.85, 0.56, "围绕论文核心逻辑展开：从背景与理论出发，进入诊断，再落到优化路径与结论。", font_size=16, color=PALETTE["ink"])
     add_textbox(slide, 12.15, 0.18, 0.35, 0.22, f"{slide_no:02d}", font_size=10, color=PALETTE["muted"], font_name=FONT_EN)
 
 
 def build_background_slide(prs: Presentation, slide_no: int, total: int) -> None:
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     add_top_chrome(slide, "研究背景与意义", slide_no, total, subtitle="RESEARCH BACKGROUND")
-    add_round_rect(slide, 0.6, 1.0, 12.1, 5.75, PALETTE["panel_soft"], line=PALETTE["line"])
+    add_round_rect(slide, 0.6, 1.0, 12.1, 5.88, PALETTE["panel_soft"], line=PALETTE["line"])
 
     for x, value, label in [
-        (0.9, "11.24亿", "截至 2024 年 6 月我国网民规模"),
-        (2.95, "97.6%", "短视频用户使用率"),
-        (5.0, "4.8万亿", "2024 年上半年直播电商交易规模"),
+        (0.92, "11.24亿", "截至 2024 年 6 月我国网民规模"),
+        (2.98, "97.6%", "短视频用户使用率"),
+        (5.04, "4.8万亿", "2024 年上半年直播电商交易规模"),
     ]:
-        add_round_rect(slide, x, 1.32, 1.75, 1.15, PALETTE["white"], line=PALETTE["line"])
-        add_textbox(slide, x + 0.12, 1.47, 1.5, 0.3, value, font_size=21, color=PALETTE["teal_dark"], bold=True)
-        add_textbox(slide, x + 0.12, 1.82, 1.48, 0.45, label, font_size=10, color=PALETTE["muted"])
+        add_metric_card(slide, x, 1.28, 1.8, 1.18, value, label, value_size=25)
 
-    add_textbox(slide, 0.88, 2.72, 2.1, 0.3, "研究背景", font_size=14, color=PALETTE["teal_dark"], bold=True)
-    _, tf_left = add_textbox(slide, 0.88, 3.05, 5.15, 2.45)
+    add_round_rect(slide, 0.86, 2.74, 5.25, 3.55, PALETTE["white"], line=PALETTE["line"])
+    add_panel_title(slide, 1.04, 2.94, "研究背景", size=18)
+    _, tf_left = add_textbox(slide, 1.0, 3.38, 4.82, 2.34)
     for item in [
-        "5G、AIGC 与内容电商深度融合，传统流量红利持续收缩。",
-        "短视频与直播已成为服饰品牌获取曝光、互动与转化的基础设施。",
-        "FD 已入驻抖音、小红书等平台，但内容打法仍停留在产品展示层面。",
+        "5G、AIGC 与内容电商深度融合，服饰品牌竞争从“铺量”转向“内容价值”。",
+        "短视频与直播已成为服饰品牌获取曝光、互动和转化的重要触点。",
+        "FD 服饰已入驻抖音、小红书等平台，但内容仍以产品展示为主，缺少场景化表达。",
+        "因此，有必要从理论与实践两端诊断其短视频营销失效根源。",
     ]:
-        add_paragraph(tf_left, item, font_size=16, color=PALETTE["ink"], bullet=True, space_after=6)
+        add_paragraph(tf_left, item, font_size=17, color=PALETTE["ink"], bullet=True, space_after=8, line_spacing=1.15)
 
-    add_round_rect(slide, 0.88, 5.55, 5.1, 0.68, PALETTE["mint"])
+    add_round_rect(slide, 0.92, 6.04, 5.14, 0.44, PALETTE["mint"])
     add_textbox(
         slide,
-        1.02,
-        5.68,
-        4.8,
-        0.3,
+        1.08,
+        6.11,
+        4.82,
+        0.22,
         "研究目标：找出 FD 服饰短视频营销失效根源，并提出可落地的优化路径。",
-        font_size=14,
+        font_size=15,
         color=PALETTE["ink"],
         bold=True,
+        align=PP_ALIGN.CENTER,
     )
 
-    add_textbox(slide, 6.55, 2.72, 2.1, 0.3, "研究意义", font_size=14, color=PALETTE["teal_dark"], bold=True)
-    add_round_rect(slide, 6.48, 3.05, 2.7, 2.05, PALETTE["white"], line=PALETTE["line"])
-    add_textbox(slide, 6.72, 3.2, 1.4, 0.32, "理论意义", font_size=18, color=PALETTE["ink"], bold=True)
-    _, tf_t = add_textbox(slide, 6.68, 3.56, 2.22, 1.25)
-    add_paragraph(tf_t, "补充服饰品牌短视频营销案例研究。", font_size=14, color=PALETTE["muted"], bullet=True)
-    add_paragraph(tf_t, "验证 STP 与 4V 在细分赛道中的联动应用。", font_size=14, color=PALETTE["muted"], bullet=True)
+    add_round_rect(slide, 6.38, 2.74, 6.08, 1.78, PALETTE["white"], line=PALETTE["line"])
+    add_panel_title(slide, 6.62, 2.94, "研究意义", size=18)
+    add_textbox(slide, 6.66, 3.34, 1.18, 0.24, "理论层面", font_size=16, color=PALETTE["teal_dark"], bold=True)
+    add_textbox(slide, 7.85, 3.3, 4.12, 0.5, "补充服饰品牌短视频营销案例研究，并验证 STP 与 4V 在细分赛道中的联动应用。", font_size=15, color=PALETTE["muted"])
+    add_textbox(slide, 6.66, 3.9, 1.18, 0.24, "实践层面", font_size=16, color=PALETTE["teal_dark"], bold=True)
+    add_textbox(slide, 7.85, 3.86, 4.12, 0.5, "为 FD 服饰提供从诊断到执行的短视频优化方案，也为同类中小服饰品牌提供可借鉴路径。", font_size=15, color=PALETTE["muted"])
 
-    add_round_rect(slide, 9.45, 3.05, 2.98, 2.05, PALETTE["white"], line=PALETTE["line"])
-    add_textbox(slide, 9.68, 3.2, 1.4, 0.32, "实践意义", font_size=18, color=PALETTE["ink"], bold=True)
-    _, tf_p = add_textbox(slide, 9.65, 3.56, 2.45, 1.25)
-    add_paragraph(tf_p, "为 FD 服饰提供从诊断到执行的短视频优化方案。", font_size=14, color=PALETTE["muted"], bullet=True)
-    add_paragraph(tf_p, "为同类中小服饰品牌提供可借鉴路径。", font_size=14, color=PALETTE["muted"], bullet=True)
+    add_round_rect(slide, 6.38, 4.78, 6.08, 1.5, PALETTE["white"], line=PALETTE["line"])
+    add_panel_title(slide, 6.62, 4.98, "研究目的与核心问题", size=18)
+    add_textbox(slide, 6.72, 5.4, 5.5, 0.32, "FD 服饰的短视频问题，是战略层方向失准，还是执行层内容价值不足？", font_size=18, color=PALETTE["ink"], bold=True)
+    add_textbox(slide, 6.72, 5.82, 5.38, 0.22, "论文以 STP 找方向，以 4V 找价值，最终落到优化策略与执行机制。", font_size=15, color=PALETTE["muted"])
+    add_footer_bar(slide)
+
+
+def build_literature_slide(prs: Presentation, slide_no: int, total: int) -> None:
+    slide = prs.slides.add_slide(prs.slide_layouts[6])
+    add_top_chrome(slide, "国内外研究现状", slide_no, total, subtitle="LITERATURE REVIEW")
+    add_round_rect(slide, 0.6, 1.0, 12.1, 5.88, PALETTE["panel_soft"], line=PALETTE["line"])
+
+    add_round_rect(slide, 0.86, 1.28, 5.55, 5.2, PALETTE["white"], line=PALETTE["line"])
+    add_panel_title(slide, 1.06, 1.48, "国内研究", size=18)
+    _, tf_cn = add_textbox(slide, 1.02, 1.92, 5.0, 4.2)
+    for item in [
+        "侯雪青（2024）指出，短视频的有用性与易用性会显著提升消费者购买意愿。",
+        "刘雅婷、陈文晖（2025）提出“短视频种草 + 社交平台引流 + 直播带货转化”正在重塑服饰产业链。",
+        "舒方瑞（2024）、严小林（2025）强调服饰短视频应突出版型、质感、细节与视觉修辞。",
+        "现有国内研究更多聚焦头部品牌或行业层面，对中小服饰品牌的实操诊断仍偏少。",
+    ]:
+        add_paragraph(tf_cn, item, font_size=16, color=PALETTE["ink"], bullet=True, space_after=8, line_spacing=1.14)
+
+    add_round_rect(slide, 6.68, 1.28, 5.56, 2.38, PALETTE["white"], line=PALETTE["line"])
+    add_panel_title(slide, 6.9, 1.48, "国外研究", size=18)
+    _, tf_foreign = add_textbox(slide, 6.86, 1.92, 4.96, 1.42)
+    for item in [
+        "Tam 等（2025）、Kanellos 等（2024）从数字营销与数据技术角度讨论品牌精细化触达。",
+        "Luo 等（2025）与 Zafar 等（2021）认为内容沉浸、信任与互动机制会显著影响购买意愿。",
+        "国外研究更重视前沿技术、全球趋势与消费者心理机制。",
+    ]:
+        add_paragraph(tf_foreign, item, font_size=15, color=PALETTE["ink"], bullet=True, space_after=8, line_spacing=1.14)
+
+    add_round_rect(slide, 6.68, 3.98, 5.56, 2.5, PALETTE["white"], line=PALETTE["line"])
+    add_panel_title(slide, 6.9, 4.18, "研究评述与论文切入点", size=18)
+    _, tf_gap = add_textbox(slide, 6.86, 4.62, 4.96, 1.5)
+    for item in [
+        "现有研究较少聚焦 FD 这类中型服饰企业的真实运营问题。",
+        "不少研究仅采用单一理论视角，难以同时解释“方向”与“价值”的双重问题。",
+        "本文以 FD 为案例，构建 STP + 4V 双理论框架，提升诊断与策略建议的针对性。",
+    ]:
+        add_paragraph(tf_gap, item, font_size=15, color=PALETTE["ink"], bullet=True, space_after=8, line_spacing=1.14)
+    add_footer_bar(slide)
+
+
+def build_theory_slide(prs: Presentation, slide_no: int, total: int) -> None:
+    slide = prs.slides.add_slide(prs.slide_layouts[6])
+    add_top_chrome(slide, "理论依据", slide_no, total, subtitle="THEORETICAL BASIS")
+    add_round_rect(slide, 0.6, 1.0, 12.1, 5.88, PALETTE["panel_soft"], line=PALETTE["line"])
+
+    add_round_rect(slide, 0.86, 1.28, 3.64, 4.85, PALETTE["white"], line=PALETTE["line"])
+    add_panel_title(slide, 1.08, 1.48, "STP 理论", size=18)
+    add_textbox(slide, 1.12, 1.94, 2.8, 0.24, "Segmentation / Targeting / Positioning", font_size=12, color=PALETTE["muted"], font_name=FONT_EN)
+    _, tf_stp = add_textbox(slide, 1.06, 2.34, 3.0, 2.95)
+    for item in [
+        "市场细分：按需求、场景、消费能力与价值偏好重新划分市场。",
+        "目标市场：识别最值得服务的核心人群与次级人群。",
+        "市场定位：明确品牌想被谁记住，以及凭什么被选择。",
+        "作用：帮助论文回答“FD 应该做给谁看、如何被看见”。",
+    ]:
+        add_paragraph(tf_stp, item, font_size=15, color=PALETTE["ink"], bullet=True, space_after=7, line_spacing=1.13)
+
+    add_round_rect(slide, 4.86, 1.28, 3.64, 4.85, PALETTE["white"], line=PALETTE["line"])
+    add_panel_title(slide, 5.08, 1.48, "4V 理论", size=18)
+    add_textbox(slide, 5.12, 1.94, 2.24, 0.24, "Variation / Versatility / Value / Vibration", font_size=12, color=PALETTE["muted"], font_name=FONT_EN)
+    _, tf_4v = add_textbox(slide, 5.06, 2.34, 3.0, 2.95)
+    for item in [
+        "差异化：用鲜明内容形式与视觉标签提升识别度。",
+        "功能化：让内容具备教程、决策辅助和转化引导作用。",
+        "附加价值：输出品牌理念、设计故事与情绪价值。",
+        "共鸣：通过互动、评论、UGC 和社群形成关系连接。",
+    ]:
+        add_paragraph(tf_4v, item, font_size=15, color=PALETTE["ink"], bullet=True, space_after=7, line_spacing=1.13)
+
+    add_round_rect(slide, 8.86, 1.28, 3.38, 4.85, PALETTE["white"], line=PALETTE["line"])
+    add_panel_title(slide, 9.08, 1.48, "双理论分析框架", size=18)
+    chips = [
+        ("1", "文献与行业背景"),
+        ("2", "FD 现状与用户调研"),
+        ("3", "STP 识别方向问题"),
+        ("4", "4V 提出优化路径"),
+    ]
+    y = 2.02
+    for idx, label in chips:
+        add_chip(slide, 9.12, y, 2.72, 0.44, f"{idx}. {label}", fill=PALETTE["panel_soft"], color=PALETTE["teal_dark"], font_size=13)
+        y += 0.62
+    add_round_rect(slide, 9.1, 4.7, 2.84, 0.86, PALETTE["mint"])
+    add_textbox(
+        slide,
+        9.22,
+        4.84,
+        2.58,
+        0.5,
+        "理论作用分工：STP 解决“方向”，4V 解决“价值”。",
+        font_size=15,
+        color=PALETTE["ink"],
+        bold=True,
+        align=PP_ALIGN.CENTER,
+        valign=MSO_VERTICAL_ANCHOR.MIDDLE,
+    )
     add_footer_bar(slide)
 
 
