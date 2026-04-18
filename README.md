@@ -2,33 +2,27 @@
 
 [中文说明](README.zh-CN.md)
 
-Designer Skill is a privacy-safe source repository for a designer-oriented skill.
+Designer Skill is a design-focused skill for creating polished visual deliverables and design explorations.
 
-This repo keeps the reusable skill content public while leaving out personal files and generated project outputs.
+## What It Does
 
-## Included
+- creates high-fidelity HTML prototypes and UI mockups
+- supports slide-style visual presentations and design narratives
+- helps explore layout, typography, color, motion, and interaction
+- adapts outputs to an existing product, brand, screenshot set, or design system
+- supports iterative design tweaks and multiple visual directions
+
+## Repository Files
 
 - `SKILL.md`
-  A packaged skill entry that describes when and how the skill should be used.
+  Main skill definition and usage guidance.
 - `Claude-Design-Sys-Prompt_中文翻译(1).txt`
-  The bundled Chinese translated source prompt used as the detailed reference.
+  Bundled Chinese translated prompt reference.
 - `README.md`
-  English repository overview.
+  English project overview.
 - `README.zh-CN.md`
-  Chinese repository overview.
+  Chinese project overview.
 
-## Excluded
+## Usage
 
-- generated PPT, PNG, and preview exports
-- thesis or other personal source documents
-- personalized scripts with hard-coded local paths or user-specific project data
-
-## Why It Looks Lean
-
-That is intentional. The goal is to keep the public repo shareable and reusable without exposing private context from downstream work created with the skill.
-
-## Notes
-
-- `SKILL.md` is the main skill entry point.
-- `Claude-Design-Sys-Prompt_中文翻译(1).txt` remains available as the full translated prompt reference.
-- Local generated artifacts are ignored through `.gitignore` so they do not get uploaded by accident.
+Use this skill when the task needs designer-level output rather than plain code generation, especially for interfaces, prototypes, slides, and visual concept work.
