@@ -1,6 +1,8 @@
 __pycache__/
 *.py[cod]
 *.pyo
+*.pptx
+*_sheet.png
 .python-version
 .venv/
 venv/
@@ -9,6 +11,11 @@ env/
 .mypy_cache/
 .idea/
 .vscode/
+defense_export/
+defense_v2_export/
+defense_v4_export/
+template_export/
+template_media/
 Thumbs.db
 .DS_Store
 ~$*

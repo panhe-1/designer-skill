@@ -2,69 +2,33 @@
 
 [中文说明](README.zh-CN.md)
 
-Designer Skill is a small workspace for design-oriented prompt assets, presentation generation scripts, and visual reference exports.
+Designer Skill is now a minimal repository that keeps only the core prompt body of the skill and its documentation.
 
-This repository currently focuses on two related tracks:
+This repository focuses on one thing:
 
-- preserving a Chinese translation draft of a Claude design system prompt
-- generating thesis defense presentation decks with Python and `python-pptx`
+- preserving the core Chinese prompt body for the designer-oriented skill
 
 ## Repository Contents
 
 - `Claude-Design-Sys-Prompt_中文翻译(1).txt`
-  Chinese translation draft of the design-system-oriented prompt source material.
-- `build_defense_ppt.py`
-  Base version of the thesis defense deck generator.
-- `build_defense_ppt_school_template.py`
-  Enhanced school-template version of the thesis defense deck generator.
-- `template_media/`
-  Image assets used by the presentation scripts.
-- `template_export/`
-  Preview images for the template-style presentation output.
-- `defense_export/`
-  Preview images for the base defense deck output.
-- `defense_v2_export/`
-  Preview images for the enhanced defense deck output.
-
-## Requirements
-
-- Python 3.11 or later
-- `python-pptx`
-
-Install dependencies with:
-
-```bash
-pip install python-pptx
-```
-
-## Quick Start
-
-Run the base presentation generator:
-
-```bash
-python build_defense_ppt.py
-```
-
-Run the school-template presentation generator:
-
-```bash
-python build_defense_ppt_school_template.py
-```
+  Core Chinese prompt text for the skill.
+- `README.md`
+  English overview of the repository.
+- `README.zh-CN.md`
+  Chinese overview of the repository.
 
 ## Project Structure
 
-This repository is intentionally lightweight and file-based.
+This repository is intentionally kept very small.
 
-- Prompt material is stored as source text for reference and iteration.
-- Presentation scripts generate `.pptx` outputs from structured layout code.
-- Export folders keep rendered slide previews for quick review without opening PowerPoint.
+- The prompt body is stored as plain text for direct review and editing.
+- Documentation is separated into English and Chinese README files.
 
 ## Notes
 
-- Some input and output paths in the Python scripts are currently tailored to the original local machine setup. Review them before running on another computer.
-- The repository includes exported preview images so the current visual direction can be inspected directly on GitHub.
-- If this project evolves into a reusable skill package, the next recommended step is to separate prompt assets, runtime scripts, and generated outputs into clearer subdirectories.
+- Generated scripts, exports, preview images, and other derived assets have been removed from the repository.
+- If you later want to turn this into a standard Codex skill repository, a good next step would be to add a formal `SKILL.md` based on the prompt body.
 
 ## Status
 
-This repository is an actively organized working snapshot rather than a finalized packaged product.
+This repository is a cleaned-down source-only snapshot of the skill content.
