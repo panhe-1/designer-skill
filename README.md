@@ -2,33 +2,33 @@
 
 [中文说明](README.zh-CN.md)
 
-Designer Skill is now a minimal repository that keeps only the core prompt body of the skill and its documentation.
+Designer Skill is a privacy-safe source repository for a designer-oriented skill.
 
-This repository focuses on one thing:
+This repo keeps the reusable skill content public while leaving out personal files and generated project outputs.
 
-- preserving the core Chinese prompt body for the designer-oriented skill
+## Included
 
-## Repository Contents
-
+- `SKILL.md`
+  A packaged skill entry that describes when and how the skill should be used.
 - `Claude-Design-Sys-Prompt_中文翻译(1).txt`
-  Core Chinese prompt text for the skill.
+  The bundled Chinese translated source prompt used as the detailed reference.
 - `README.md`
-  English overview of the repository.
+  English repository overview.
 - `README.zh-CN.md`
-  Chinese overview of the repository.
+  Chinese repository overview.
 
-## Project Structure
+## Excluded
 
-This repository is intentionally kept very small.
+- generated PPT, PNG, and preview exports
+- thesis or other personal source documents
+- personalized scripts with hard-coded local paths or user-specific project data
 
-- The prompt body is stored as plain text for direct review and editing.
-- Documentation is separated into English and Chinese README files.
+## Why It Looks Lean
+
+That is intentional. The goal is to keep the public repo shareable and reusable without exposing private context from downstream work created with the skill.
 
 ## Notes
 
-- Generated scripts, exports, preview images, and other derived assets have been removed from the repository.
-- If you later want to turn this into a standard Codex skill repository, a good next step would be to add a formal `SKILL.md` based on the prompt body.
-
-## Status
-
-This repository is a cleaned-down source-only snapshot of the skill content.
+- `SKILL.md` is the main skill entry point.
+- `Claude-Design-Sys-Prompt_中文翻译(1).txt` remains available as the full translated prompt reference.
+- Local generated artifacts are ignored through `.gitignore` so they do not get uploaded by accident.

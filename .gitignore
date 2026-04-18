@@ -2,7 +2,11 @@ __pycache__/
 *.py[cod]
 *.pyo
 *.pptx
+*.docx
 *_sheet.png
+*_export/
+_pptfix_runtime/
+repair_defense_ppt_layout.py
 .python-version
 .venv/
 venv/
